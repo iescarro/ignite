@@ -118,7 +118,8 @@ function generate_views($name, $columns) {
   $i = 0;
   foreach ($columns as $column) {
     $cols .= "<p>" . ucwords($column->name) . "<br>
-  <?php echo form_input('" . $column->name . "'); ?>
+  <?php echo form_input('" . $column->name . "', " . '$this->input->post(' . "'" . $column->name . "'" . ')' . "); ?>
+  <?php echo form_error('" . $column->name . "'); ?>
 </p>";
     if ($i++ < count($columns) - 1) {
       $cols .= "\n";
@@ -140,6 +141,7 @@ __COLS__
   foreach ($columns as $column) {
     $cols .= "<p>" . ucwords($column->name) . "<br>
   <?php echo form_input('" . $column->name . "', " . '$' . $name . '->' . $column->name . "); ?>
+  <?php echo form_error('" . $column->name . "'); ?>
 </p>";
     if ($i++ < count($columns) - 1) {
       $cols .= "\n";
