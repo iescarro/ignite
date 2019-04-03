@@ -229,7 +229,7 @@ __COLS__
   );
 }
 
-function profile_form_validate() {
+function __VAR___form_validate() {
   $obj = &get_instance();
 __VALS__
 }';
@@ -259,8 +259,11 @@ class __NAME__s_Controller extends CI_Controller {
   function add() {
     if ($this->input->post()) {
       $__VAR__ = __VAR___form();
-      $this->__VAR___model->save($__VAR__);
-      redirect("__VAR__s");
+      __VAR___form_validate();
+      if ($this->form_validation->run() != FALSE) {
+        $this->__VAR___model->save($__VAR__);
+        redirect("__VAR__s");
+      }
     }
     $this->layout->view("__VAR__s/add");
   }
@@ -268,8 +271,11 @@ class __NAME__s_Controller extends CI_Controller {
   function edit($id) {
     if ($this->input->post()) {
       $__VAR__ = __VAR___form();
-      $this->__VAR___model->update($__VAR__, $id);
-      redirect("__VAR__s");
+      __VAR___form_validate();
+      if ($this->form_validation->run() != FALSE) {
+        $this->__VAR___model->update($__VAR__, $id);
+        redirect("__VAR__s");
+      }
     }
     $data["__VAR__"] = $this->__VAR___model->read($id);
     $this->layout->view("__VAR__s/edit", $data);
