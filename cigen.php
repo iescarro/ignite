@@ -21,6 +21,15 @@ if ($command == 'g') {
   save('application/views/' . $name . '/index.php', $index);
 } else if ($command == 'c') {
   save('application/controllers/' . ucwords($name) . 's.php', generate_controller($name));
+} else if ($command == 'm') {
+  save('application/models/' . ucwords($name) . '_model.php', generate_model($name));
+} else if ($command == 'h') {
+  save('application/helpers/' . $name . '_helper.php', generate_helper($name, $columns));
+} else if ($command == 'v') {
+  list($add, $edit, $index) = generate_views($name, $columns);
+  save('application/views/' . $name . '/add.php', $add);
+  save('application/views/' . $name . '/edit.php', $edit);
+  save('application/views/' . $name . '/index.php', $index);
 } else {
   echo 'Command not supported';
 }
