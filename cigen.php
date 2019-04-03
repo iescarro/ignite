@@ -255,6 +255,7 @@ class __NAME__s_Controller extends CI_Controller {
   }
 
   function index() {
+    $data["__VAR__s"] = $this->__VAR___model->find_all();
     $this->layout->view("__VAR__s/index", $data);
   }
 
