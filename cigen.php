@@ -8,14 +8,9 @@ if (count($argv) != 3) {
 }
 
 list($file, $command, $parameter) = $argv;
+list($name, $columns) = parse_arg($parameter);
+initialize_directories($name);
 if ($command == 'g') {
-  list($name, $columns) = parse_arg($parameter);
-  make_dir('application/doc');
-  make_dir('application/controllers');
-  make_dir('application/models');
-  make_dir('application/helpers');
-  make_dir('application/views/' . $name);
-
   append('application/doc/schema.sql', generate_schema($name, $columns));
   save('application/controllers/' . ucwords($name) . 's.php', generate_controller($name));
   save('application/models/' . ucwords($name) . '_model.php', generate_model($name));
@@ -24,8 +19,18 @@ if ($command == 'g') {
   save('application/views/' . $name . '/add.php', $add);
   save('application/views/' . $name . '/edit.php', $edit);
   save('application/views/' . $name . '/index.php', $index);
+} else if ($command == 'c') {
+  save('application/controllers/' . ucwords($name) . 's.php', generate_controller($name));
 } else {
   echo 'Command not supported';
+}
+
+function initialize_directories($name) {
+  make_dir('application/doc');
+  make_dir('application/controllers');
+  make_dir('application/models');
+  make_dir('application/helpers');
+  make_dir('application/views/' . $name);
 }
 
 function make_dir($dir) {
@@ -40,8 +45,14 @@ function append($file, $contents) {
 }
 
 function save($file, $contents) {
-  echo 'Saving ' . $file . "...\n";
-  file_put_contents($file, $contents, LOCK_EX);
+  echo 'Saving ' . $file . '... ';
+  if (file_exists($file)) {
+    echo 'file exists';
+  } else {
+    file_put_contents($file, $contents, LOCK_EX);
+    echo 'OK';
+  }
+  echo "\n";
 }
 
 function get_sql_type($type) {
