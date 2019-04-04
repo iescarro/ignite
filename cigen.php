@@ -23,6 +23,8 @@ if ($command == 'g') {
   save('application/controllers/' . ucwords($name) . 's.php', generate_controller($name));
 } else if ($command == 'm') {
   save('application/models/' . ucwords($name) . '_model.php', generate_model($name));
+} else if ($command == 'hf') {
+  append('application/helpers/' . $name . '_helper.php', generate_helper($name, $columns));
 } else if ($command == 'h') {
   save('application/helpers/' . $name . '_helper.php', generate_helper($name, $columns));
 } else if ($command == 'v') {
@@ -148,7 +150,7 @@ function generate_views($name, $columns) {
     }
   }
   $add = "<h3>Add __VAR__</h3>
-<?php echo form_open('__VAR__/add'); ?>
+<?php echo form_open('__VAR__s/add'); ?>
 __COLS__
 <p>
   <?php echo form_submit('submit', 'Save changes'); ?>
@@ -170,7 +172,7 @@ __COLS__
     }
   }
   $edit = "<h3>Edit __VAR__</h3>
-<?php echo form_open('__VAR__/edit/' . " . '$__VAR__->id' . "); ?>
+<?php echo form_open('__VAR__s/edit/' . " . '$__VAR__->id' . "); ?>
 __COLS__
 <p>
   <?php echo form_submit('submit', 'Save changes'); ?>
@@ -331,11 +333,11 @@ class __NAME___Model extends CI_Model {
   }
 
   function read($id) {
-    return $this->db->get_where("__VAR__s", array()->row();
+    return $this->db->get_where("__VAR__s", array("id" => $id))->row();
   }
 
   function save($__VAR__) {
-    $this->db->insert("", $__VAR__);
+    $this->db->insert("__VAR__s", $__VAR__);
   }
 
   function update($__VAR__, $id) {
