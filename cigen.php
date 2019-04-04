@@ -27,9 +27,9 @@ if ($command == 'g') {
   save('application/helpers/' . $name . '_helper.php', generate_helper($name, $columns));
 } else if ($command == 'v') {
   list($add, $edit, $index) = generate_views($name, $columns);
-  save('application/views/' . $name . '/add.php', $add);
-  save('application/views/' . $name . '/edit.php', $edit);
-  save('application/views/' . $name . '/index.php', $index);
+  save('application/views/' . $name . 's/add.php', $add);
+  save('application/views/' . $name . 's/edit.php', $edit);
+  save('application/views/' . $name . 's/index.php', $index);
 } else {
   echo 'Command not supported';
 }
@@ -124,6 +124,7 @@ function column_name_exists($name, $columns) {
 }
 
 class Column {
+
   function __construct($name, $type, $not_null = false, $primary_key = false, $auto_increment = false) {
     $this->name = $name;
     $this->type = $type;
@@ -131,6 +132,7 @@ class Column {
     $this->primary_key = $primary_key;
     $this->auto_increment = $auto_increment;
   }
+
 }
 
 function generate_views($name, $columns) {
@@ -261,13 +263,12 @@ __VALS__
   $str = str_replace("__VALS__", $vals, $str);
   $str = str_replace('"', "'", $str);
   return $str;
-
 }
 
 function generate_controller($model) {
   $str = '<?php
 
-class __NAME__s_Controller extends CI_Controller {
+class __NAME__s extends CI_Controller {
 
   function __construct() {
     parent::__construct();
@@ -308,7 +309,7 @@ class __NAME__s_Controller extends CI_Controller {
     $this->__VAR___model->delete($id);
     redirect("__VAR__s");
   }
-  
+
 }';
   $str = str_replace("__NAME__", ucwords($model), $str);
   $str = str_replace("__VAR__", $model, $str);
