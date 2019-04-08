@@ -41,7 +41,7 @@ function initialize_directories($name) {
   make_dir('application/controllers');
   make_dir('application/models');
   make_dir('application/helpers');
-  make_dir('application/views/' . $name);
+  make_dir('application/views/' . $name . 's');
 }
 
 function make_dir($dir) {
