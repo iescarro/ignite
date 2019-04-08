@@ -15,10 +15,7 @@ if ($command == 'g') {
   save('application/controllers/' . ucwords($name) . 's.php', generate_controller($name));
   save('application/models/' . ucwords($name) . '_model.php', generate_model($name));
   save('application/helpers/' . $name . '_helper.php', generate_helper($name, $columns));
-  list($add, $edit, $index) = generate_views($name, $columns);
-  save('application/views/' . $name . '/add.php', $add);
-  save('application/views/' . $name . '/edit.php', $edit);
-  save('application/views/' . $name . '/index.php', $index);
+  save_views($name, $columns);
 } else if ($command == 'c') {
   save('application/controllers/' . ucwords($name) . 's.php', generate_controller($name));
 } else if ($command == 'm') {
@@ -28,12 +25,16 @@ if ($command == 'g') {
 } else if ($command == 'h') {
   save('application/helpers/' . $name . '_helper.php', generate_helper($name, $columns));
 } else if ($command == 'v') {
+  save_views($name, $columns);
+} else {
+  echo 'Command not supported';
+}
+
+function save_views($name, $columns) {
   list($add, $edit, $index) = generate_views($name, $columns);
   save('application/views/' . $name . 's/add.php', $add);
   save('application/views/' . $name . 's/edit.php', $edit);
   save('application/views/' . $name . 's/index.php', $index);
-} else {
-  echo 'Command not supported';
 }
 
 function initialize_directories($name) {
