@@ -201,6 +201,7 @@ __COLS__
 __HEADS__
     <th></th>
   </tr>
+  <?php foreach (" . '$' . $name . 's as $' . $name . '): ?>' . "
   <tr>
 __BODY__
     <td>
@@ -208,6 +209,7 @@ __BODY__
       <a href='javascript:void(0);' onclick=" . '"delete__NAME__(' . "'" . '<?php echo $' . $name . '->id; ?>' . "'" . ', <?php echo $' . $name . '->id; ?>);' . '" title="Delete">Delete</a>' . "
     </td>
   </tr>
+  <?php endforeach; ?>
 </table>
 
 <script>
@@ -324,7 +326,7 @@ class __NAME__s extends CI_Controller {
 function generate_model($model) {
   $str = '<?php
 
-class __NAME___Model extends CI_Model {
+class __NAME___model extends CI_Model {
 
   function __construct() {
     parent::__construct();
