@@ -345,7 +345,7 @@ class __NAME___model extends CI_Model {
   }
 
   function update($__VAR__, $id) {
-    $this->db->update("__VAR__s", $__VAR__);
+    $this->db->update("__VAR__s", $__VAR__, array("id" => $id));
   }
 
   function delete($__VAR__) {
