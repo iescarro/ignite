@@ -194,6 +194,7 @@ __COLS__
     }
   }
   $index = "<h3>__NAME__s</h3>
+<p><?php echo anchor('__VAR__s/add', 'Add __NAME__'); ?></p>
 <table>
   <tr>
 __HEADS__
