@@ -1,0 +1,1 @@
+php cigen.php %*
