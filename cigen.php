@@ -2,9 +2,10 @@
 
 // Usage: C:\xampp\php\php.exe cigen.php g "user|name,password,salt,emal,phone"
 
-if (count($argv) != 3) {
-  echo 'Invalid arguments';
-  die();
+if (count($argv) == 1) {
+  print_help(); die();
+} else if (count($argv) != 3) {
+  echo 'Invalid arguments'; die();
 }
 
 list($file, $command, $parameter) = $argv;
@@ -28,6 +29,23 @@ if ($command == 'g') {
   save_views($name, $columns);
 } else {
   echo 'Command not supported';
+}
+
+function print_help() {
+  echo 'Usage: cigen.php [command] [parameter]
+  
+  g           Generate CodeIgniter components (controller=, model, views)
+  c           Create controller component
+  h           Create helper component
+  m           Create model component
+  v           Create view components
+  
+  parameter   The parameters that will be generated. See format example below
+              
+  Example:    "user|name,password,salt,email,phone"
+              Will generate a user with properties name, password, salt, email and phone
+
+';
 }
 
 function save_views($name, $columns) {
