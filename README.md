@@ -5,13 +5,13 @@
 ## Install
 
 ```
-$ composer require iescarro/cigen
+composer require iescarro/cigen
 ```
 
 ## Usage
 
 ```
-$ php vendor/iescarro/cigen/cigen.php g "user|username,password,email"
+php vendor/iescarro/cigen/cigen.php g "user|username,password,email"
 ```
 
 To generate user component with username, password and email components.
