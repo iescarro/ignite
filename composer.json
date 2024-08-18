@@ -1,16 +1,20 @@
 {
-    "name": "iescarro/cigen",
+    "name": "iescarro/ignite",
     "type": "library",
     "description": "Simple CodeIgniter Generator",
-    "keywords": ["codeigniter","generator","php"],
-    "homepage": "http://www.scoollabs.com",
+    "keywords": [
+        "codeigniter",
+        "generator",
+        "php"
+    ],
+    "homepage": "https://ian.iceithq.com",
     "license": "MIT",
     "authors": [
         {
             "name": "Ian Escarro",
             "email": "ian.escarro@gmail.com",
-            "homepage": "http://www.scoollabs.com",
-            "role": "Developer"
+            "homepage": "https://ian.iceithq.com",
+            "role": "Programmer"
         }
     ]
 }

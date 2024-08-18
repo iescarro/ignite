@@ -1,44 +1,45 @@
 <?php
 
-// Usage: C:\xampp\php\php.exe cigen.php g "user|name,password,salt,emal,phone"
+// Usage: C:\xampp\php\php.exe g scaffold "user|name,password,salt,emal,phone"
 
 if (count($argv) == 1) {
-  print_help(); die();
+  print_help();
+  die();
 } else if (count($argv) != 3) {
-  echo 'Invalid arguments'; die();
+  echo 'Invalid arguments';
+  die();
 }
 
 list($file, $command, $parameter) = $argv;
 list($name, $columns) = parse_arg($parameter);
 initialize_directories($name);
-if ($command == 'g') {
+if ($command == 'scaffold') {
   append('application/doc/schema.sql', generate_schema($name, $columns));
   save('application/controllers/' . ucwords($name) . 's.php', generate_controller($name));
   save('application/models/' . ucwords($name) . '_model.php', generate_model($name));
   save('application/helpers/' . $name . '_helper.php', generate_helper($name, $columns));
   save_views($name, $columns);
-} else if ($command == 'c') {
+} else if ($command == 'controller') {
   save('application/controllers/' . ucwords($name) . 's.php', generate_controller($name));
-} else if ($command == 'm') {
+} else if ($command == 'model') {
   save('application/models/' . ucwords($name) . '_model.php', generate_model($name));
-} else if ($command == 'hf') {
+} else if ($command == 'helper') {
   append('application/helpers/' . $name . '_helper.php', generate_helper($name, $columns));
-} else if ($command == 'h') {
-  save('application/helpers/' . $name . '_helper.php', generate_helper($name, $columns));
-} else if ($command == 'v') {
+} else if ($command == 'views') {
   save_views($name, $columns);
 } else {
   echo 'Command not supported';
 }
 
-function print_help() {
-  echo 'Usage: cigen.php [command] [parameter]
+function print_help()
+{
+  echo 'Usage: g [command] [parameter]
   
-  g           Generate CodeIgniter components (controller=, model, views)
-  c           Create controller component
-  h           Create helper component
-  m           Create model component
-  v           Create view components
+  scaffold    Generate CodeIgniter components (controller=, model, views)
+  controller  Create controller component
+  helper      Create helper component
+  model       Create model component
+  views       Create view components
   
   parameter   The parameters that will be generated. See format example below
               
@@ -48,14 +49,16 @@ function print_help() {
 ';
 }
 
-function save_views($name, $columns) {
+function save_views($name, $columns)
+{
   list($add, $edit, $index) = generate_views($name, $columns);
   save('application/views/' . $name . 's/add.php', $add);
   save('application/views/' . $name . 's/edit.php', $edit);
   save('application/views/' . $name . 's/index.php', $index);
 }
 
-function initialize_directories($name) {
+function initialize_directories($name)
+{
   make_dir('application/doc');
   make_dir('application/controllers');
   make_dir('application/models');
@@ -63,18 +66,21 @@ function initialize_directories($name) {
   make_dir('application/views/' . $name . 's');
 }
 
-function make_dir($dir) {
+function make_dir($dir)
+{
   if (!file_exists($dir)) {
     mkdir($dir, 0755, true);
   }
 }
 
-function append($file, $contents) {
+function append($file, $contents)
+{
   echo 'Adding ' . $file . "...\n";
   file_put_contents($file, $contents, FILE_APPEND | LOCK_EX);
 }
 
-function save($file, $contents) {
+function save($file, $contents)
+{
   echo 'Saving ' . $file . '... ';
   if (file_exists($file)) {
     echo 'file exists';
@@ -85,14 +91,16 @@ function save($file, $contents) {
   echo "\n";
 }
 
-function get_sql_type($type) {
+function get_sql_type($type)
+{
   if ($type == 'string') {
     return 'varchar(255)';
   }
   return $type;
 }
 
-function generate_schema($name, $columns) {
+function generate_schema($name, $columns)
+{
   $cols = '';
   $i = 0;
   foreach ($columns as $column) {
@@ -116,7 +124,8 @@ __COLS__
   return $str;
 }
 
-function parse_arg($arg) {
+function parse_arg($arg)
+{
   list($name, $cols) = explode('|', $arg);
   $cols = explode(',', $cols);
   $columns = array();
@@ -135,7 +144,8 @@ function parse_arg($arg) {
   return array($name, $columns);
 }
 
-function column_name_exists($name, $columns) {
+function column_name_exists($name, $columns)
+{
   foreach ($columns as $col) {
     if ($col->name == $name) {
       return true;
@@ -144,19 +154,21 @@ function column_name_exists($name, $columns) {
   return false;
 }
 
-class Column {
+class Column
+{
 
-  function __construct($name, $type, $not_null = false, $primary_key = false, $auto_increment = false) {
+  function __construct($name, $type, $not_null = false, $primary_key = false, $auto_increment = false)
+  {
     $this->name = $name;
     $this->type = $type;
     $this->not_null = $not_null;
     $this->primary_key = $primary_key;
     $this->auto_increment = $auto_increment;
   }
-
 }
 
-function generate_views($name, $columns) {
+function generate_views($name, $columns)
+{
   $cols = '';
   $i = 0;
   foreach ($columns as $column) {
@@ -253,7 +265,8 @@ __BODY__
   );
 }
 
-function generate_helper($name, $columns) {
+function generate_helper($name, $columns)
+{
   $cols = '';
   $vals = '';
   $i = 1;
@@ -289,7 +302,8 @@ __VALS__
   return $str;
 }
 
-function generate_controller($model) {
+function generate_controller($model)
+{
   $str = '<?php
 
 class __NAME__s extends CI_Controller {
@@ -341,7 +355,8 @@ class __NAME__s extends CI_Controller {
   return $str;
 }
 
-function generate_model($model) {
+function generate_model($model)
+{
   $str = '<?php
 
 class __NAME___model extends CI_Model {

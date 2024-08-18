@@ -1,24 +1,24 @@
-# cigen
+# ignite
 
 ![](ci.png)
 
 ## Install
 
 ```
-composer require iescarro/cigen
+composer require iescarro/ignite
 ```
 
 ## Usage
 
 ```
-php vendor/iescarro/cigen/cigen.php g "user|username,password,email"
+php vendor/iescarro/ignite/g scaffold "user|username,password,email"
 ```
 
 To generate user component with username, password and email components.
 
 ## Contribute
 
-See, https://github.com/iescarro/cigen/issues. Thanks!
+See, https://github.com/iescarro/ignite/issues. Thanks!
 
 ## Donate
 
