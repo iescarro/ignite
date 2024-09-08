@@ -135,7 +135,15 @@ function pluralize($word)
   ];
 
   $uncountable = [
-    'sheep', 'fish', 'deer', 'series', 'species', 'money', 'rice', 'information', 'equipment'
+    'sheep',
+    'fish',
+    'deer',
+    'series',
+    'species',
+    'money',
+    'rice',
+    'information',
+    'equipment'
   ];
 
   if (in_array(strtolower($word), $uncountable)) {
@@ -291,7 +299,7 @@ __COLS__
       $bodies .= "\n";
     }
   }
-  $index = "<h3>__NAME__s</h3>
+  $index = "<h3>__NAME__</h3>
 <p><?php echo anchor('__VARS__/add', 'Add __NAME__'); ?></p>
 <table>
   <tr>
@@ -320,7 +328,7 @@ __BODY__
     }
   }
 </script>";
-  $index = str_replace("__NAME__", ucwords($name), $index);
+  $index = str_replace("__NAME__", ucwords(pluralize($name)), $index);
   $index = str_replace("__VAR__", $name, $index);
   $index = str_replace("__VARS__", pluralize($name), $index);
   $index = str_replace("__HEADS__", $heads, $index);
@@ -378,6 +386,10 @@ class __NAME__ extends CI_Controller {
 
   function __construct() {
     parent::__construct();
+    $this->load->library("form_validation");
+    $this->load->library("layout");
+    $this->load->model("__VAR___model");
+    $this->load->helper("__VAR__");
     $this->load->model("__VAR___model");
   }
 
@@ -431,7 +443,7 @@ function generate_model($model)
 class __NAME___model extends CI_Model {
 
   function __construct() {
-    parent::__construct();
+    $this->load->database();
   }
 
   function find_all() {
